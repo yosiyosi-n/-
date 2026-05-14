@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InquiryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/inquiry', [InquiryController::class, 'index'])->name('inquiry.index');
+Route::post('/inquiry/confirm', [InquiryController::class, 'confirm'])->name('inquiry.confirm');
+Route::post('/inquiry/thanks', [InquiryController::class, 'thanks'])->name('inquiry.thanks');
+// form action=の修正の容易さから「->name('inquiry.confirm')」を追加
