@@ -1,0 +1,8 @@
+# Dockerのデータベース実体（絶対にコミットしない）
+/docker/mysql/data/
+
+# macOS固有のシステムファイル
+.DS_Store
+
+# Laravel内の環境設定ファイル（念のため全体ルートからも除外指定）
+/src/.env
