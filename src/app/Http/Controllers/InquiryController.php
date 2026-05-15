@@ -29,4 +29,32 @@ class InquiryController extends Controller
         ]);
         return view('inquiry.thanks');
     }
+
+    public function admin()
+    {
+        $inquiries = Inquiry::all();
+        return view('inquiry.admin', compact('inquiries'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = Inquiry::query();
+
+        if ($request->filled('name')) {
+            $query->where('name', 'LIKE', '%' . $request->input('name') . '%');
+        }
+
+        if ($request->filled('email')) {
+            $query->where('email', 'LIKE', '%' . $request->input('email') . '%');
+        }
+
+        $inquiries = $query->get();
+        return view('inquiry.admin', compact('inquiries'));
+    }
+
+    public function reset()
+    {
+        return redirect()->route('admin.index');
+    }
+
 }

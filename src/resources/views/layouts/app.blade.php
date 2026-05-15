@@ -27,7 +27,7 @@
         <h2>Practice Project - お問い合わせデモ</h2>
     </header>
 
-    <main>
+    <main class="content">
         <!-- 💡各ページのメインコンテンツがここに入れ替わりで挿入されます -->
         @yield('content')
     </main>
