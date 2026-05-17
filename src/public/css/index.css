@@ -24,7 +24,6 @@
     align-items: flex-start;
 }
 
-/* 💡 左側の項目名幅を 30% に固定 */
 .form-group label.form-label {
     display: block;
     font-weight: bold;
@@ -34,7 +33,6 @@
     margin-bottom: 0;
 }
 
-/* 💡 変更：右側の入力エリア幅を 70% から 65% に減らし、真ん中に 5% 分の空間を作ります */
 .form-input-area {
     width: 65%;
     box-sizing: border-box;
@@ -48,6 +46,35 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+/* ==========================================
+   💡 お問い合わせの種類（セレクトボックス）の最終スタイル
+   ========================================== */
+.select-wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.form-container .form-group .form-input-area .select-wrapper select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    /* wrapperの50%幅いっぱいに広げます */
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    color: #8f8279;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .form-flex {
@@ -160,8 +187,12 @@
         width: 100%;
     }
 
-    /* スマホ画面の時は空間は不要なので、横幅100%いっぱいに戻します */
     .form-input-area {
+        width: 100%;
+    }
+
+    /* スマホ画面の時は押しやすさ優先で横幅100%いっぱいに戻し、🔽も右端へ移動させます */
+    .select-wrapper {
         width: 100%;
     }
 }
