@@ -12,13 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->id();                           // bigint unsigned / PRIMARY KEY / NOT NULL
+            $table->string('name', 255);            // varchar(255) / NOT NULL
+            $table->string('email', 255)->unique(); // varchar(255) / NOT NULL
+            $table->string('password', 255);        // varchar(255) / NOT NULL
+            $table->timestamps();                   // created_at, updated_at (timestamp)
         });
     }
 
@@ -30,3 +28,4 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
+
