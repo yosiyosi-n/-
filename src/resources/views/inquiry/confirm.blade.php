@@ -33,10 +33,8 @@
                     <input type="hidden" name="email" value="{{ $inputs['email'] }}">
                 </div>
 
-                <!-- 💡 電話番号エリア：AIボット対策・加工処理を適用 -->
                 <div class="confirm-group">
                     <div class="confirm-label">電話番号</div>
-                    <!-- 💡 ソースコード上は空っぽに見せかけ、data属性という隠し引き出しの中にバラバラに番号を隠します -->
                     <div class="confirm-value" id="secure-telephone-display" 
                          data-tel1="{{ $inputs['telephone_one'] }}" 
                          data-tel2="{{ $inputs['telephone_two'] }}" 
@@ -78,19 +76,15 @@
         </form>
     </div>
 
-        <!-- 💡 AIボット対策：画面表示の瞬間にバラバラの電話番号を【ハイフンなし】で結合する安全なJavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const displayElement = document.getElementById("secure-telephone-display");
             if (displayElement) {
-                // 隠し引き出しから番号を取り出します
                 const tel1 = displayElement.getAttribute("data-tel1");
                 const tel2 = displayElement.getAttribute("data-tel2");
                 const tel3 = displayElement.getAttribute("data-tel3");
-                // 💡 変更：ハイフンを挟まず、数字をそのままストレートに結合して出力します
                 displayElement.textContent = tel1 + tel2 + tel3;
             }
         });
     </script>
 @endsection
-

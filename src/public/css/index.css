@@ -27,6 +27,7 @@
 .form-group label.form-label {
     display: block;
     font-weight: bold;
+    color: #8f8279;
     width: 30%;
     flex-shrink: 0;
     box-sizing: border-box;
@@ -36,6 +37,7 @@
 .form-input-area {
     width: 65%;
     box-sizing: border-box;
+    position: relative;
 }
 
 .form-group input[type="text"],
@@ -46,6 +48,36 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    color: #8f8279;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 50%;
+}
+
+.form-container .form-group .form-input-area .select-wrapper select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding-right: 30px;
+    cursor: pointer;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    color: #8f8279;
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .form-flex {
@@ -63,16 +95,10 @@
     gap: 5px;
 }
 
-/* ==========================================
-   💡 電話番号の入力ボックス内の数字加工（ハイフンなし対応）
-   ========================================== */
 .form-group .form-tel-input {
     width: 30%;
-    /* 💡 数字が最も美しく、等間隔に並ぶ伝統的な Georgia フォントを適用します */
     font-family: Georgia, serif;
-    /* 💡 入力中の数字がパッと見てパッと分かりやすくなるよう、サイズを一回り大きくします */
     font-size: 18px;
-    /* 💡 数字同士の隙間をわずかに広げ、すっきりとした読みやすさを実現します */
     letter-spacing: 0.05em;
     font-weight: 500;
 }
@@ -95,12 +121,10 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: normal;
+    color: #8f8279;
     -webkit-tap-highlight-color: transparent;
 }
 
-/* ==========================================
-    ラジオボタンの完全枠線消去とオリジナルデザイン
-   ========================================== */
 .form-radio-group input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -154,9 +178,6 @@
     background-color: #8f8279;
 }
 
-/* ==========================================
-    タブレット・スマホ向けの自動伸縮（レスポンシブ）
-   ========================================== */
 @media screen and (max-width: 768px) {
     .form-group {
         flex-direction: column;
@@ -169,6 +190,10 @@
     }
 
     .form-input-area {
+        width: 100%;
+    }
+
+    .select-wrapper {
         width: 100%;
     }
 }

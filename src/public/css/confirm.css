@@ -12,30 +12,20 @@
     font-size: calc(20px + 1vw);
 }
 
-/* ==========================================
-   💡 新設：新しく追加した confirm-border に四角い外枠線を適用
-   ========================================== */
 .confirm-border {
     border-top: 1px solid #ccc;
-    /* 💡 最上部のグレーの外枠線 */
     border-left: 1px solid #ccc;
-    /* 💡 左側の外枠線 */
     border-right: 1px solid #ccc;
-    /* 💡 右側の外枠線 */
     border-radius: 0;
-    /* 💡 角取りなしのフラットデザイン */
     overflow: hidden;
     box-sizing: border-box;
     width: 100%;
 }
 
-/* 各項目全体の横幅100%を維持し、横線の区切りを綺麗に入れます */
 .confirm-group {
     display: flex;
     border-bottom: 1px solid #ccc;
-    /* 💡 各項目を区切る横線の色を外枠と統一（これで底辺も綺麗に閉じます） */
     align-items: stretch;
-    /* 左右の高さが完璧に揃うようにstretchにします */
     width: 100%;
     justify-content: space-between;
     box-sizing: border-box;
@@ -45,27 +35,18 @@
     align-items: flex-start;
 }
 
-/* ==========================================
-   項目名（左側）：30%の幅全体に色を敷き詰める（余白・角丸なし）
-   ========================================== */
 .confirm-label {
     font-weight: bold;
     background-color: #8f8279;
     color: #ffffff;
-
     width: 30%;
     flex-shrink: 0;
     box-sizing: border-box;
-
     padding: 15px;
-    /* 文字が上下の線にくっつかないよう調整 */
     border-radius: 0;
     text-align: center;
 }
 
-/* ==========================================
-   送信内容（右側）：背景は白、文字色をブラウングレーに
-   ========================================== */
 .confirm-value {
     color: #8f8279;
     width: 65%;
@@ -73,12 +54,15 @@
     box-sizing: border-box;
     white-space: pre-wrap;
     padding: 15px;
-    /* 内側に心地よい余白をつけます */
 }
 
-/* ==========================================
-   ボタン配置エリア（枠の外側で完全中央寄せ）
-   ========================================== */
+#secure-telephone-display {
+    font-family: Georgia, serif;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+}
+
 .btn-group {
     width: 100%;
     text-align: center;
@@ -93,26 +77,20 @@
     min-width: 120px;
 }
 
-/* 送信ボタンの色を入力画面のボタンとお揃いのブラウングレーに統一 */
 .btn-group .btn-submit {
     background-color: #8f8279;
     color: #fff;
 }
 
-/* 修正ボタン：文字色と下線をブラウングレーに統一 */
 .btn-group .btn-back {
     color: #8f8279;
     background-color: #fff;
     text-decoration: underline;
 }
 
-/* ==========================================
-    タブレット・スマホ向けの自動伸縮（レスポンシブ）
-   ========================================== */
 @media screen and (max-width: 768px) {
     .confirm-border {
         border: none;
-        /* スマホ画面では窮屈になるため枠線を非表示にします */
     }
 
     .confirm-group {
@@ -131,17 +109,4 @@
         width: 100%;
         padding: 10px 15px;
     }
-}
-/* ==========================================
-   💡 電話番号の表示カスタマイズ（ハイフンなし・フォント加工）
-   ========================================== */
-#secure-telephone-display {
-    /* 💡 数字が最も美しく、等間隔に並ぶ伝統的な Georgia フォントを適用します */
-    font-family: Georgia, serif;
-    /* 💡 数字が大きくなりすぎて不格好にならないよう、少しスマートなサイズに微調整 */
-    font-size: 17px;
-    /* 💡 追記：数字と数字の間の隙間を少し広げることで、ハイフンがなくても抜群に読みやすくなります */
-    letter-spacing: 0.08em;
-    /* 💡 少しだけ文字の太さをクッキリさせて視認性を高めます */
-    font-weight: 500;
 }

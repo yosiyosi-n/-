@@ -3,14 +3,12 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
-    /* 💡 画面の横幅に合わせて基本の文字サイズをなめらかに伸縮させます */
     font-size: calc(14px + 0.3vw);
 }
 
 header {
     background-color: #fff;
     padding: 2vw 0;
-    /* 💡 余白も画面幅に連動 */
     margin-bottom: 20px;
     text-align: center;
     width: 100%;
@@ -19,7 +17,6 @@ header {
 
 header h2 {
     margin: 0;
-    /* 💡 ロゴの巨大な文字がスマホではみ出さないよう、画面幅に合わせて伸縮させます */
     font-size: calc(24px + 2.5vw);
     font-family: Georgia, serif;
     color: #8f8279;
@@ -31,7 +28,6 @@ header h2 {
 .admin-container,
 .auth-container {
     width: 90%;
-    /* 💡 スマホ等で画面の端にピタッとくっつかないよう、ゆとりを持たせます */
     max-width: 800px;
     margin: 0 auto;
     padding: 0;
@@ -60,7 +56,7 @@ footer {
 }
 
 .btn-submit {
-    background-color: #007bff;
+    background-color: #8f8279;
     color: #fff;
     border: none;
     font-size: 16px;

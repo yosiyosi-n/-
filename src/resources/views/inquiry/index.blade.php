@@ -13,12 +13,11 @@
         <form action="{{ route('inquiry.confirm') }}" method="POST" class="inquiry-form">
             @csrf
 
-            <!-- 1. お名前（姓・名） -->
+            <!-- 1. お名前 -->
             <div class="form-group">
                 <label class="form-label">お名前 <span class="error-message">※</span></label>
                 <div class="form-input-area">
                     <div class="form-flex">
-                        <!-- 💡 姓と名の記入例を追加 -->
                         <input type="text" name="first_name" id="first-name" value="{{ old('first_name') }}" placeholder="例: 山田" class="form-flex-item">
                         <input type="text" name="last_name" id="last-name" value="{{ old('last_name') }}" placeholder="例: 太郎" class="form-flex-item">
                     </div>
@@ -44,18 +43,16 @@
             <div class="form-group">
                 <label for="email" class="form-label">メールアドレス <span class="error-message">※</span></label>
                 <div class="form-input-area">
-                    <!-- 💡 メールアドレスの記入例を追加 -->
                     <input type="text" name="email" id="email" value="{{ old('email') }}" placeholder="例: test@example.com">
                     @error('email') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
             </div>
 
-            <!-- 4. 電話番号（3つに分割） -->
+            <!-- 4. 電話番号 -->
             <div class="form-group">
                 <label class="form-label">電話番号 <span class="error-message">※</span></label>
                 <div class="form-input-area">
                     <div class="form-tel-group">
-                        <!-- 💡 電話番号それぞれの記入例を追加 -->
                         <input type="text" name="telephone_one" id="telephone-one" value="{{ old('telephone_one') }}" placeholder="090" class="form-tel-input">
                         <span>-</span>
                         <input type="text" name="telephone_two" id="telephone-two" value="{{ old('telephone_two') }}" placeholder="1234" class="form-tel-input">
@@ -72,7 +69,6 @@
             <div class="form-group">
                 <label for="address" class="form-label">住所 <span class="error-message">※</span></label>
                 <div class="form-input-area">
-                    <!-- 💡 住所の記入例を追加 -->
                     <input type="text" name="address" id="address" value="{{ old('address') }}" placeholder="例: 東京都渋谷区千駄ヶ谷1-2-3">
                     @error('address') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
@@ -82,7 +78,6 @@
             <div class="form-group">
                 <label for="building-name" class="form-label">建物名</label>
                 <div class="form-input-area">
-                    <!-- 💡 建物名の記入例を追加 -->
                     <input type="text" name="building_name" id="building-name" value="{{ old('building_name') }}" placeholder="例: 千駄ヶ谷マンション101">
                 </div>
             </div>
@@ -109,13 +104,12 @@
             <div class="form-group form-group-top">
                 <label for="content" class="form-label">お問い合わせの内容 <span class="error-message">※</span></label>
                 <div class="form-input-area">
-                    <!-- 💡 お問い合わせ内容の記入例を追加 -->
                     <textarea name="content" id="content" rows="5" placeholder="例: お問い合わせ内容をご記載ください">{{ old('content') }}</textarea>
                     @error('content') <div class="error-message">{{ $message }}</div> @enderror
                 </div>
             </div>
 
-            <!-- 9. 確認画面ボタン -->
+            <!-- 9. ボタン配置 -->
             <div class="form-btn-row">
                 <button type="submit" class="btn btn-submit">確認画面へ</button>
             </div>
