@@ -3,11 +3,14 @@ body {
     margin: 0;
     padding: 0;
     color: #333;
+    /* 💡 画面の横幅に合わせて基本の文字サイズをなめらかに伸縮させます */
+    font-size: calc(14px + 0.3vw);
 }
 
 header {
     background-color: #fff;
-    padding: 15px 0;
+    padding: 2vw 0;
+    /* 💡 余白も画面幅に連動 */
     margin-bottom: 20px;
     text-align: center;
     width: 100%;
@@ -16,22 +19,10 @@ header {
 
 header h2 {
     margin: 0;
-    font-size: 50px;
-    color: #b2c69d;
-}
-
-.form-radio-group label {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.form-radio-group input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+    /* 💡 ロゴの巨大な文字がスマホではみ出さないよう、画面幅に合わせて伸縮させます */
+    font-size: calc(24px + 2.5vw);
+    font-family: Georgia, serif;
+    color: #8f8279;
 }
 
 .content,
@@ -39,9 +30,11 @@ header h2 {
 .confirm-container,
 .admin-container,
 .auth-container {
+    width: 90%;
+    /* 💡 スマホ等で画面の端にピタッとくっつかないよう、ゆとりを持たせます */
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0;
     box-sizing: border-box;
 }
 

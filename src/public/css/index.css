@@ -1,11 +1,15 @@
 .form-container {
-    max-width: 600px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
 .form-container h1 {
+    color: #8f8279;
+    font-family: Georgia, serif;
     text-align: center;
     margin-bottom: 40px;
+    font-size: calc(20px + 1vw);
 }
 
 .form-group {
@@ -13,12 +17,14 @@
     margin-bottom: 20px;
     align-items: center;
     width: 100%;
+    justify-content: space-between;
 }
 
 .form-group-top {
     align-items: flex-start;
 }
 
+/* 💡 左側の項目名幅を 30% に固定 */
 .form-group label.form-label {
     display: block;
     font-weight: bold;
@@ -28,8 +34,9 @@
     margin-bottom: 0;
 }
 
+/* 💡 変更：右側の入力エリア幅を 70% から 65% に減らし、真ん中に 5% 分の空間を作ります */
 .form-input-area {
-    width: 70%;
+    width: 65%;
     box-sizing: border-box;
 }
 
@@ -83,11 +90,13 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+/* ==========================================
+    ラジオボタンの完全枠線消去とオリジナルデザイン
+   ========================================== */
 .form-radio-group input[type="radio"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-
     width: 20px;
     height: 20px;
     cursor: pointer;
@@ -134,4 +143,25 @@
 
 .form-btn-row .btn-submit {
     display: inline-block;
+    background-color: #8f8279;
+}
+
+/* ==========================================
+    タブレット・スマホ向けの自動伸縮（レスポンシブ）
+   ========================================== */
+@media screen and (max-width: 768px) {
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .form-group label.form-label {
+        width: 100%;
+    }
+
+    /* スマホ画面の時は空間は不要なので、横幅100%いっぱいに戻します */
+    .form-input-area {
+        width: 100%;
+    }
 }

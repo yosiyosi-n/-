@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="form-container">
-        <h1>お問い合わせ 入力</h1>
+        <h1>Contact</h1>
 
         <form action="{{ route('inquiry.confirm') }}" method="POST" class="inquiry-form">
             @csrf

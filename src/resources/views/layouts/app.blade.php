@@ -19,9 +19,5 @@
         @yield('content')
     </main>
 
-    <footer>
-        <p>&copy; {{ date('Y') }} inquiry app.</p>
-    </footer>
-
 </body>
 </html>
