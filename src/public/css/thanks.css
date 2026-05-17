@@ -1,9 +1,88 @@
-.thanks-container {
-    text-align: center;
-    padding: 40px 0;
+/* ==========================================
+   PG03: 送信完了画面専用 (thanks.css)
+   ========================================== */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    font-family: sans-serif;
 }
 
-.thanks-container .btn-group {
+/* ディスプレイ全体の真ん中（上下左右のド真ん中）にメッセージを配置します */
+body {
+    display: flex;
     justify-content: center;
-    margin-top: 20px;
+    align-items: center;
+    position: relative;
+    /* 💡 背面文字の基準位置にするため追加 */
+    overflow: hidden;
+    /* 💡 巨大な文字が画面からはみ出してスクロールバーが出るのを防ぎます */
+}
+
+/* ==========================================
+   💡 新設：ディスプレイ背面の薄い「Thank you」文字
+   ========================================== */
+body::before {
+    content: "Thank you";
+    /* 💡 ロゴやお名前とお揃いの伝統的な Georgia フォントにします */
+    font-family: Georgia, serif;
+    /* 💡 ディスプレイいっぱいに広がる超特大サイズ（画面幅の12%の大きさ） */
+    font-size: 13vw;
+    font-weight: bold;
+    /* 💡 限界まで薄く上品なグレーにして、最背面に透けさせます */
+    color: #f2f2f2;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 💡 ディスプレイの完全真ん中に配置 */
+    z-index: 1;
+    /* 💡 最背面に配置（手前の文字の下に潜り込ませます） */
+    pointer-events: none;
+    /* 💡 マウスのクリックを邪魔しないように設定 */
+    white-space: nowrap;
+}
+
+.thanks-container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 2;
+    /* 💡 背面文字より手前に表示されるように「2」を指定 */
+}
+
+/* メッセージをお名前などとお揃いの上品なブラウングレーに変更 */
+.thanks-container h1 {
+    color: #8f8279;
+    font-size: calc(18px + 1vw);
+    /* 画面幅に合わせて滑らかに縮小 */
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+/* ==========================================
+   ボタン配置エリア
+   ========================================== */
+.btn-group {
+    width: 100%;
+    text-align: center;
+}
+
+/* 「HOME」ボタンを、確認画面の「修正」ボタンとお揃いの上品なブラウングレー下線に変更 */
+.btn-group .btn-back {
+    display: inline-block;
+    color: #fff;
+    background-color: #8f8279;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 30px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
 }

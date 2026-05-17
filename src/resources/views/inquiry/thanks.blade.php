@@ -1,17 +1,19 @@
-@extends('layouts.app')
-
-@section('title', '送信完了')
-
-@section('css')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>送信完了</title>
     <link rel="stylesheet" href="{{ asset('css/thanks.css') }}">
-@endsection
+</head>
+<body>
 
-@section('content')
     <div class="thanks-container">
         <h1>お問い合わせありがとうございました</h1>
-        <p>内容を送信いたしました。</p>
         <div class="btn-group">
-            <a href="/" class="btn btn-back">トップページへ戻る</a>
+            <a href="/" class="btn btn-back">HOME</a>
         </div>
     </div>
-@endsection
+
+</body>
+</html>
