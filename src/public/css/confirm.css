@@ -1,32 +1,134 @@
+.confirm-container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.confirm-container h1 {
+    color: #8f8279;
+    font-family: Georgia, serif;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: calc(20px + 1vw);
+}
+
+/* ==========================================
+   💡 新設：新しく追加した confirm-border に四角い外枠線を適用
+   ========================================== */
+.confirm-border {
+    border-top: 1px solid #ccc;
+    /* 💡 最上部のグレーの外枠線 */
+    border-left: 1px solid #ccc;
+    /* 💡 左側の外枠線 */
+    border-right: 1px solid #ccc;
+    /* 💡 右側の外枠線 */
+    border-radius: 0;
+    /* 💡 角取りなしのフラットデザイン */
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+/* 各項目全体の横幅100%を維持し、横線の区切りを綺麗に入れます */
 .confirm-group {
     display: flex;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-    align-items: center;
+    border-bottom: 1px solid #ccc;
+    /* 💡 各項目を区切る横線の色を外枠と統一（これで底辺も綺麗に閉じます） */
+    align-items: stretch;
+    /* 左右の高さが完璧に揃うようにstretchにします */
     width: 100%;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 
 .confirm-group-top {
     align-items: flex-start;
 }
 
+/* ==========================================
+   項目名（左側）：30%の幅全体に色を敷き詰める（余白・角丸なし）
+   ========================================== */
 .confirm-label {
     font-weight: bold;
-    color: #555;
+    background-color: #8f8279;
+    color: #ffffff;
+
     width: 30%;
     flex-shrink: 0;
     box-sizing: border-box;
+
+    padding: 15px;
+    /* 文字が上下の線にくっつかないよう調整 */
+    border-radius: 0;
+    text-align: center;
 }
 
+/* ==========================================
+   送信内容（右側）：背景は白、文字色をブラウングレーに
+   ========================================== */
 .confirm-value {
-    color: #333;
-    width: 70%;
+    color: #8f8279;
+    width: 65%;
+    flex-shrink: 0;
     box-sizing: border-box;
     white-space: pre-wrap;
+    padding: 15px;
+    /* 内側に心地よい余白をつけます */
 }
 
+/* ==========================================
+   ボタン配置エリア（枠の外側で完全中央寄せ）
+   ========================================== */
 .btn-group {
-    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
     display: flex;
-    gap: 15px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-group .btn {
+    display: inline-block;
+    min-width: 120px;
+}
+
+/* 送信ボタンの色を入力画面のボタンとお揃いのブラウングレーに統一 */
+.btn-group .btn-submit {
+    background-color: #8f8279;
+    color: #fff;
+}
+
+/* 修正ボタン：文字色と下線をブラウングレーに統一 */
+.btn-group .btn-back {
+    color: #8f8279;
+    background-color: #fff;
+    text-decoration: underline;
+}
+
+/* ==========================================
+    タブレット・スマホ向けの自動伸縮（レスポンシブ）
+   ========================================== */
+@media screen and (max-width: 768px) {
+    .confirm-border {
+        border: none;
+        /* スマホ画面では窮屈になるため枠線を非表示にします */
+    }
+
+    .confirm-group {
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid #eee;
+    }
+
+    .confirm-label {
+        width: 100%;
+        text-align: left;
+        padding: 10px 15px;
+    }
+
+    .confirm-value {
+        width: 100%;
+        padding: 10px 15px;
+    }
 }
