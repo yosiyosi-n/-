@@ -1,12 +1,17 @@
 @extends('layouts.app')
 
-@section('title', 'お問い合わせ完了')
+@section('title', '送信完了')
+
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/thanks.css') }}">
+@endsection
 
 @section('content')
-    <div style="text-align: center; margin: 40px 0;">
-        <h1>送信完了</h1>
-        <p>お問い合わせありがとうございました。</p>
-        <br>
-        <a href="{{ route('inquiry.index') }}" class="btn">入力画面に戻る</a>
+    <div class="thanks-container">
+        <h1>お問い合わせありがとうございました</h1>
+        <p>内容を送信いたしました。</p>
+        <div class="btn-group">
+            <a href="/" class="btn btn-back">トップページへ戻る</a>
+        </div>
     </div>
 @endsection

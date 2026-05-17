@@ -1,0 +1,9 @@
+.thanks-container {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.thanks-container .btn-group {
+    justify-content: center;
+    margin-top: 20px;
+}

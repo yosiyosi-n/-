@@ -16,35 +16,54 @@ class InquiryRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
-        'name'    => 'required|string|max:255',
-        'email'   => 'required|email|max:255',
-        'title'   => 'required|string|max:255',
-        'content' => 'required|string',
+            'first_name'      => 'required|string|max:255',
+            'last_name'       => 'required|string|max:255',
+            'gender'          => 'required|in:1,2,3',
+            'email'           => 'required|email|max:255',
+            'telephone_one'   => 'required|string|max:255',
+            'telephone_two'   => 'required|string|max:255',
+            'telephone_three' => 'required|string|max:255',
+            'address'         => 'required|string|max:255',
+            'building_name'   => 'nullable|string|max:255', // 建物名は任意（nullable）
+            'inquiry_type'    => 'required|in:1,2,3,4,5',
+            'content'         => 'required|string',
         ];
     }
 
+    /**
+     * 項目名と連動する日本語のエラーメッセージテンプレート
+     */
     public function messages(): array
     {
         return [
             'required' => ':attributeは必須入力です。',
             'email'    => '正しいメールアドレスの形式で入力してください。',
-            'max'      => ':attributeはmax文字以内で入力してください。',
+            'max'      => ':attributeは:max文字以内で入力してください。',
+            'in'       => '正しい選択肢を選んでください。',
         ];
     }
 
+    /**
+     * 英語のカラム名を綺麗な日本語に翻訳
+     */
     public function attributes(): array
     {
         return [
-            'name'    => 'お名前',
-            'email'   => 'メールアドレス',
-            'title'   => '件名',
-            'content' => 'お問い合わせ内容',
+            'first_name'      => '姓',
+            'last_name'       => '名',
+            'gender'          => '性別',
+            'email'           => 'メールアドレス',
+            'telephone_one'   => '電話番号（市外局番）',
+            'telephone_two'   => '電話番号（市内局番）',
+            'telephone_three' => '電話番号（加入者番号）',
+            'address'         => '住所',
+            'building_name'   => '建物名',
+            'inquiry_type'    => 'お問い合わせの種類',
+            'content'         => 'お問い合わせの内容',
         ];
     }
 }

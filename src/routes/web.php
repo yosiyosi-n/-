@@ -21,3 +21,4 @@ Route::post('/thanks', [InquiryController::class, 'thanks'])->name('inquiry.than
 Route::get('/admin', [InquiryController::class, 'admin'])->middleware(['auth'])->name('admin.index');
 Route::post('/search', [InquiryController::class, 'search'])->middleware(['auth'])->name('admin.search');
 Route::get('/reset', [InquiryController::class, 'reset'])->middleware(['auth'])->name('admin.reset');
+Route::post('/delete', [InquiryController::class, 'delete'])->middleware(['auth'])->name('admin.delete');

@@ -10,9 +10,16 @@ class Inquiry extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'gender',
         'email',
-        'title',
+        'telephone_one',
+        'telephone_two',
+        'telephone_three',
+        'address',
+        'building_name',
+        'inquiry_type',
         'content',
     ];
 }

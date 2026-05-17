@@ -2,52 +2,74 @@
 
 @section('title', '管理画面')
 
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+@endsection
+
 @section('content')
     <div class="admin-container">
-        <h1>PG04: 管理画面</h1>
-
-        <!-- 💡 PG05・PG06: 検索および検索リセットフォームの追加 -->
-        <div class="search-box" style="background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd;">
-            <!-- 仕様書の「パス /search」に合わせてPOST（またはGET）で送信します -->
-            <form action="/search" method="POST" class="search-form">
+        <div class="admin-header-actions">
+            <h1>PG04: 管理画面</h1>
+            <form action="/logout" method="POST">
                 @csrf
-                <div class="form-group" style="display: inline-block; margin-right: 10px;">
-                    <label for="search-name" style="font-weight: bold;">お名前:</label>
-                    <!-- 💡 検索キーワードが消えないように request('name') を保持します -->
-                    <input type="text" name="name" id="search-name" value="{{ request('name') }}" style="width: 150px; padding: 5px;">
-                </div>
-
-                <div class="form-group" style="display: inline-block; margin-right: 10px;">
-                    <label for="search-email" style="font-weight: bold;">メールアドレス:</label>
-                    <input type="text" name="email" id="search-email" value="{{ request('email') }}" style="width: 180px; padding: 5px;">
-                </div>
-
-                <!-- 💡 検索実行ボタン（PG05） -->
-                <button type="submit" class="btn btn-search" style="background-color: #007bff; color: #fff; border: none; padding: 6px 12px;">検索</button>
-                
-                <!-- 💡 検索リセットボタン（PG06: パス /reset へのボタン） -->
-                <a href="/reset" class="btn btn-reset" style="background-color: #6c757d; color: #fff; text-decoration: none; padding: 6px 12px; margin-left: 5px; font-size: 14px; display: inline-block;">リセット</a>
+                <button type="submit" class="btn btn-logout">ログアウト</button>
             </form>
         </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <div class="search-box">
+            <form action="/search" method="POST" class="search-form">
+                @csrf
+                <div class="search-form-group">
+                    <label for="search-name">お名前:</label>
+                    <input type="text" name="name" id="search-name" value="{{ request('name') }}" class="search-input">
+                </div>
+
+                <div class="search-form-group">
+                    <label for="search-email">メールアドレス:</label>
+                    <input type="text" name="email" id="search-email" value="{{ request('email') }}" class="search-input search-input-email">
+                </div>
+
+                <button type="submit" class="btn btn-search">検索</button>
+                <a href="/reset" class="btn btn-reset">リセット</a>
+            </form>
+        </div>
+
+        <div class="export-box">
+            <a href="/export" class="btn btn-export">CSVエクスポート</a>
+        </div>
+
+        <table class="admin-table">
             <thead>
-                <tr style="background-color: #eee; border-bottom: 2px solid #ccc;">
-                    <th style="padding: 10px; text-align: left;">ID</th>
-                    <th style="padding: 10px; text-align: left;">お名前</th>
-                    <th style="padding: 10px; text-align: left;">メールアドレス</th>
-                    <th style="padding: 10px; text-align: left;">件名</th>
-                    <th style="padding: 10px; text-align: left;">送信日時</th>
+                <tr>
+                    <th>ID</th>
+                    <th>お名前</th>
+                    <th>メールアドレス</th>
+                    <th>件名</th>
+                    <th>送信日時 / 操作</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($inquiries as $inquiry)
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        <td style="padding: 10px;">{{ $inquiry->id }}</td>
-                        <td style="padding: 10px;">{{ $inquiry->name }}</td>
-                        <td style="padding: 10px;">{{ $inquiry->email }}</td>
-                        <td style="padding: 10px;">{{ $inquiry->title }}</td>
-                        <td style="padding: 10px;">{{ $inquiry->created_at->format('Y/m/d H:i') }}</td>
+                    <tr>
+                        <td>{{ $inquiry->id }}</td>
+                        <td>{{ $inquiry->first_name }} {{ $inquiry->last_name }}</td>
+                        <td>{{ $inquiry->email }}</td>
+                        <td>
+                            @if($inquiry->inquiry_type == '1') 商品のお届けについて
+                            @elseif($inquiry->inquiry_type == '2') 商品の交換について
+                            @elseif($inquiry->inquiry_type == '3') 商品トラブル
+                            @elseif($inquiry->inquiry_type == '4') ショップへのお問い合わせ
+                            @else その他
+                            @endif
+                        </td>
+                        <td class="admin-table-flex-td">
+                            <span>{{ $inquiry->created_at->format('Y/m/d H:i') }}</span>
+                            <form action="/delete" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $inquiry->id }}">
+                                <button type="submit" class="btn btn-delete">削除</button>
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

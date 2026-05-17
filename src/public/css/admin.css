@@ -1,0 +1,100 @@
+.admin-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-form-group {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.search-form-group label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.search-input {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-input-email {
+    width: 180px;
+}
+
+.btn-search {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+}
+
+.btn-reset {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.btn-logout {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+}
+
+.export-box {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.btn-export {
+    background-color: #28a745;
+    color: #fff;
+    padding: 8px 16px;
+    font-weight: bold;
+    border: none;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-table th {
+    background-color: #eee;
+    border-bottom: 2px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.admin-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+
+.admin-table-flex-td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    font-size: 12px;
+}
