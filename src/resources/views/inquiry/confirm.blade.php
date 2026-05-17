@@ -10,7 +10,7 @@
     <div class="confirm-container">
         <h1>Confirm</h1>
 
-        <form action="{{ route('inquiry.thanks') }}" method="POST" class="confirm-form">
+        <form action="{{ route('inquiry.thanks') }}" method="POST" class="confirm-form" id="inquiry-confirm-form">
             @csrf
 
             <div class="confirm-border">
@@ -33,9 +33,14 @@
                     <input type="hidden" name="email" value="{{ $inputs['email'] }}">
                 </div>
 
+                <!-- 💡 電話番号エリア：AIボット対策・加工処理を適用 -->
                 <div class="confirm-group">
                     <div class="confirm-label">電話番号</div>
-                    <div class="confirm-value">{{ $inputs['telephone_one'] }}-{{ $inputs['telephone_two'] }}-{{ $inputs['telephone_three'] }}</div>
+                    <!-- 💡 ソースコード上は空っぽに見せかけ、data属性という隠し引き出しの中にバラバラに番号を隠します -->
+                    <div class="confirm-value" id="secure-telephone-display" 
+                         data-tel1="{{ $inputs['telephone_one'] }}" 
+                         data-tel2="{{ $inputs['telephone_two'] }}" 
+                         data-tel3="{{ $inputs['telephone_three'] }}"></div>
                     <input type="hidden" name="telephone_one" value="{{ $inputs['telephone_one'] }}">
                     <input type="hidden" name="telephone_two" value="{{ $inputs['telephone_two'] }}">
                     <input type="hidden" name="telephone_three" value="{{ $inputs['telephone_three'] }}">
@@ -72,4 +77,20 @@
             </div>
         </form>
     </div>
+
+        <!-- 💡 AIボット対策：画面表示の瞬間にバラバラの電話番号を【ハイフンなし】で結合する安全なJavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const displayElement = document.getElementById("secure-telephone-display");
+            if (displayElement) {
+                // 隠し引き出しから番号を取り出します
+                const tel1 = displayElement.getAttribute("data-tel1");
+                const tel2 = displayElement.getAttribute("data-tel2");
+                const tel3 = displayElement.getAttribute("data-tel3");
+                // 💡 変更：ハイフンを挟まず、数字をそのままストレートに結合して出力します
+                displayElement.textContent = tel1 + tel2 + tel3;
+            }
+        });
+    </script>
 @endsection
+

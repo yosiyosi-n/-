@@ -48,35 +48,6 @@
     border-radius: 4px;
 }
 
-/* ==========================================
-   💡 お問い合わせの種類（セレクトボックス）の最終スタイル
-   ========================================== */
-.select-wrapper {
-    position: relative;
-    width: 50%;
-}
-
-.form-container .form-group .form-input-area .select-wrapper select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    /* wrapperの50%幅いっぱいに広げます */
-    padding-right: 30px;
-    cursor: pointer;
-}
-
-.select-wrapper::after {
-    content: "▼";
-    color: #8f8279;
-    font-size: 12px;
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
-
 .form-flex {
     display: flex;
     gap: 10px;
@@ -92,8 +63,18 @@
     gap: 5px;
 }
 
+/* ==========================================
+   💡 電話番号の入力ボックス内の数字加工（ハイフンなし対応）
+   ========================================== */
 .form-group .form-tel-input {
     width: 30%;
+    /* 💡 数字が最も美しく、等間隔に並ぶ伝統的な Georgia フォントを適用します */
+    font-family: Georgia, serif;
+    /* 💡 入力中の数字がパッと見てパッと分かりやすくなるよう、サイズを一回り大きくします */
+    font-size: 18px;
+    /* 💡 数字同士の隙間をわずかに広げ、すっきりとした読みやすさを実現します */
+    letter-spacing: 0.05em;
+    font-weight: 500;
 }
 
 .form-radio-group {
@@ -188,11 +169,6 @@
     }
 
     .form-input-area {
-        width: 100%;
-    }
-
-    /* スマホ画面の時は押しやすさ優先で横幅100%いっぱいに戻し、🔽も右端へ移動させます */
-    .select-wrapper {
         width: 100%;
     }
 }
