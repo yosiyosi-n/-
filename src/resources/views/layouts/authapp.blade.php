@@ -11,22 +11,28 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-inner">
-            <h2>FashionablyLate</h2>
-            <nav class="header-nav">
-                @if(Route::is('login'))
-                    <a href="{{ route('register') }}" class="btn-header-action">register</a>
-                @elseif(Route::is('register'))
-                    <a href="{{ route('login') }}" class="btn-header-action">login</a>
-                @endif
-            </nav>
-        </div>
-    </header>
+    <!-- 💡 新設：画面の縦・横を100%完全に支配する特大のボックス -->
+    <div class="auth-wrapper">
 
-    <main class="content">
-        @yield('content')
-    </main>
+        <header class="auth-header">
+            <div class="header-inner">
+                <h2>FashionablyLate</h2>
+                <nav class="header-nav">
+                    @if(Route::is('login'))
+                        <a href="{{ route('register') }}" class="btn-header-action">register</a>
+                    @elseif(Route::is('register'))
+                        <a href="{{ route('login') }}" class="btn-header-action">login</a>
+                    @endif
+                </nav>
+            </div>
+        </header>
+
+        <main class="content">
+            @yield('content')
+        </main>
+
+    </div> <!-- /.auth-wrapper -->
 
 </body>
 </html>
+

@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,11 +12,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        DB::table('categories')->insert([
+            ['id' => 1, 'content' => '1. 商品のお届けについて', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 2, 'content' => '2. 商品の交換について', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 3, 'content' => '3. 商品トラブル', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 4, 'content' => '4. ショップへのお問い合わせ', 'created_at' => now(), 'updated_at' => now()],
+            ['id' => 5, 'content' => '5. その他', 'created_at' => now(), 'updated_at' => now()],
+        ]);
     }
 }

@@ -1,0 +1,143 @@
+/* ==========================================
+   PG04: 認証画面専用 (auth.css)
+   ========================================== */
+.auth-container {
+    width: 100%;
+    max-width: 700px;
+    /* 縦並びにした際に間延びしないよう最大幅を700pxに引き締めます */
+    margin: 0 auto;
+}
+
+/* 見出しタイトルをお問い合わせとお揃いのブラウングレーに */
+.auth-container h1 {
+    color: #8f8279;
+    font-family: Georgia, serif;
+    text-align: center;
+    font-size: calc(20px + 1vw);
+}
+
+/* ==========================================
+   大外の auth-container-border の枠線「だけ」を残します
+   ========================================== */
+.auth-container-border {
+    border: 1px solid #ccc;
+    /* 上下左右を1本の細いグレー外枠線だけでカチッと囲います */
+    border-radius: 0;
+    /* 角取りなしのフラットデザイン */
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #f7f5ec;
+    margin: 60px auto;
+    padding: 50px 50px;
+}
+
+.auth-border {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 内側の仕切り線を完全に消去（border-bottom: none）します */
+.auth-group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 項目名ラベル：背景は白、文字色はブラウングレー（下線なし） */
+.auth-label {
+    font-weight: bold;
+    color: #8f8279;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 50px 100px 5px 100px;
+    /* 下の解答欄と自然に繋がるよう、下側の余白をきゅっと引き締めます */
+    text-align: left;
+    display: flex;
+    align-items: center;
+    border-bottom: none;
+}
+
+/* 解答欄の外枠エリア */
+.auth-input-area {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 100px 20px 100px;
+    /* 上の見出しと美しい等間隔になるよう余白を調整 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* 入力ボックス（解答欄）は元の白ベースにグレー文字を維持 */
+.auth-input-area input[type="text"],
+.auth-input-area input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    color: #8f8279;
+    font-size: 16px;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* ==========================================
+   💡 ボタン配置エリア（タイポを修正して完全中央寄せ）
+   ========================================== */
+.auth-btn-row {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0 40px 0;
+    /* 白い箱の底辺と程よい空間を開けるため、下側の余白を広げます */
+    display: flex;
+    /* 💡 修正：タイポを直して、ボタンをディスプレイの本当のド真ん中（中央）に寄せます */
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.auth-btn-row .btn-submit {
+    display: inline-block;
+    background-color: #8f8279;
+    color: #ffffff;
+    min-width: 140px;
+    border: none;
+    padding: 12px 40px;
+    font-size: 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.auth-btn-row .btn-submit:hover {
+    background-color: #72675f;
+}
+
+/* ==========================================
+    スマートフォン・タブレット向け
+   ========================================== */
+@media screen and (max-width: 768px) {
+    .auth-container-border {
+        border: none;
+        margin: 30px auto;
+    }
+
+    .auth-label {
+        padding: 12px 15px 5px 15px;
+    }
+
+    .auth-input-area {
+        padding: 5px 15px 15px 15px;
+    }
+
+    .auth-btn-row {
+        padding: 15px 0 30px 0;
+    }
+}

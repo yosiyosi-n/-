@@ -5,21 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Inquiry extends Model
+class Contact extends Model
 {
     use HasFactory;
 
+    protected $table = 'contacts';
+
     protected $fillable = [
+        'categry_id',
         'first_name',
         'last_name',
         'gender',
         'email',
-        'telephone_one',
-        'telephone_two',
-        'telephone_three',
+        'tel',
         'address',
-        'building_name',
-        'inquiry_type',
-        'content',
+        'building',
+        'detail',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categry_id');
+    }
 }
+

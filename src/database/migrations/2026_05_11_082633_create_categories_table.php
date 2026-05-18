@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();                   // bigint unsigned / PRIMARY KEY / NOT NULL
-            $table->string('content', 255); // varchar(255) / NOT NULL
-            $table->timestamps();           // created_at, updated_at (timestamp)
+            $table->id();
+            $table->string('content', 255);
+            $table->timestamps();
         });
     }
 

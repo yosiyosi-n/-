@@ -30,7 +30,7 @@
                 </div>
 
                 <button type="submit" class="btn btn-search">検索</button>
-                <a href="/reset" class="btn btn-reset">リセット</a>
+                <a href="/reset" class="btn btn-reset">リセットする</a>
             </form>
         </div>
 
@@ -44,29 +44,30 @@
                     <th>ID</th>
                     <th>お名前</th>
                     <th>メールアドレス</th>
-                    <th>件名</th>
+                    <!-- 💡 変更：テーブル仕様書に完全準拠させるため「お問い合わせの種類」に変更します -->
+                    <th>お問い合わせの種類</th>
                     <th>送信日時 / 操作</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($inquiries as $inquiry)
+                @foreach ($contacts as $contact)
                     <tr>
-                        <td>{{ $inquiry->id }}</td>
-                        <td>{{ $inquiry->first_name }} {{ $inquiry->last_name }}</td>
-                        <td>{{ $inquiry->email }}</td>
+                        <td>{{ $contact->id }}</td>
+                        <td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
+                        <td>{{ $contact->email }}</td>
                         <td>
-                            @if($inquiry->inquiry_type == '1') 商品のお届けについて
-                            @elseif($inquiry->inquiry_type == '2') 商品の交換について
-                            @elseif($inquiry->inquiry_type == '3') 商品トラブル
-                            @elseif($inquiry->inquiry_type == '4') ショップへのお問い合わせ
+                            @if($contact->categry_id == '1') 商品のお届けについて
+                            @elseif($contact->categry_id == '2') 商品の交換について
+                            @elseif($contact->categry_id == '3') 商品トラブル
+                            @elseif($contact->categry_id == '4') ショップへのお問い合わせ
                             @else その他
                             @endif
                         </td>
                         <td class="admin-table-flex-td">
-                            <span>{{ $inquiry->created_at->format('Y/m/d H:i') }}</span>
+                            <span>{{ $contact->created_at ? $contact->created_at->format('Y/m/d H:i') : 'ー' }}</span>
                             <form action="/delete" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $inquiry->id }}">
+                                <input type="hidden" name="id" value="{{ $contact->id }}">
                                 <button type="submit" class="btn btn-delete">削除</button>
                             </form>
                         </td>
@@ -74,5 +75,9 @@
                 @endforeach
             </tbody>
         </table>
+
+        <div class="pagination-wrapper">
+            {{ $contacts->links() }}
+        </div>
     </div>
 @endsection
