@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title') | 基礎学習ターム 確認テスト</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/authapp.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth-app.css') }}">
     @yield('css')
 </head>
 <body>

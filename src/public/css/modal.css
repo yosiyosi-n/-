@@ -1,0 +1,128 @@
+/* ==========================================
+   💡 新設：モーダルウィンドウ専用スタイル (modal.css)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* 背景をうっすら暗くします */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* モーダルが開いたときのアクティブフラグクラス */
+.modal-overlay.is-active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-window {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 600px;
+    padding: 40px;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   💡 閉じるボタン（×）の周りにきれいな「丸型の枠線」を新設
+   ========================================== */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: #ffffff;
+
+    /* 💡 枠線の指定：テーマカラー（#8f8279）で細いソリッドな丸い枠線を作ります */
+    border: 1px solid #8f8279;
+    border-radius: 50%;
+    /* 💡 完全な真丸にします */
+
+    /* 💡 ×の文字をド中央にピタッと収めるための縦横サイズと文字配置の指定 */
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    line-height: 28px;
+    /* 💡 文字が上下の中央に美しく収まるように高さを微調整 */
+    text-align: center;
+
+    color: #8f8279;
+    /* 文字色もあらかじめ上品なブラウングレーに */
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* マウスを乗せた時（ホバー時）に、ボタンがブラウンに美しく反転する高級感をプラス */
+.modal-close-btn:hover {
+    background-color: #8f8279;
+    color: #ffffff;
+    border-color: #8f8279;
+}
+
+/* モーダル内部の2列レイアウト一覧表 */
+/* 💡 修正：.modal-container から HTMLと合致する .modal-window へ繋ぎ変えて反映させます */
+.modal-window .modal-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.modal-window .modal-table th {
+    width: 30%;
+    font-weight: bold;
+    color: #8f8279;
+    padding: 12px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+
+/* 入力データ内容の表示色を上品なブラウングレーに完全統一 */
+/* 💡 修正：.modal-container から HTMLと合致する .modal-window へ繋ぎ変えて反映させます */
+.modal-window .modal-table td {
+    width: 70%;
+    color: #8f8279;
+    padding: 12px 10px;
+    vertical-align: top;
+}
+
+/* お問い合わせ内容（長文テキストエリア）の表示色同期 */
+/* 💡 修正：.modal-container から HTMLと合致する .modal-window へ繋ぎ変えて反映させます */
+.modal-window .modal-detail-text {
+    max-height: 120px;
+    overflow-y: auto;
+    line-height: 1.6;
+    color: #8f8279;
+}
+
+.modal-action-row {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ==========================================
+   💡 詳細度調整：!important を完全排除し、色とGeorgiaフォントのうねりだけを適用
+   ========================================== */
+.admin-container .modal-table td.modal-tel-text {
+    font-family: Georgia, serif;
+    /* Georgiaのデコボコうねる質感を再現 */
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    color: #8f8279;
+    border: none;
+    /* 余計な枠線を完全に無しにします */
+    background-color: transparent;
+    padding: 12px 10px;
+}

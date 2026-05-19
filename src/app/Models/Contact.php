@@ -20,6 +20,7 @@ class Contact extends Model
         'tel',
         'address',
         'building',
+        'birth_date',
         'detail',
     ];
 

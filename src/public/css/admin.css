@@ -1,100 +1,387 @@
-.admin-header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+/* ==========================================
+   PG04: 管理画面個別スタイル (admin.css)
+   ========================================== */
+.admin-container {
+    width: 100%;
+    box-sizing: border-box;
 }
 
+.admin-container h1 {
+    color: #8f8279;
+    font-family: Georgia, serif;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: calc(20px + 1vw);
+}
+
+/* ==========================================
+   検索エリア & CSVエクスポート
+   ========================================== */
 .search-box {
-    background-color: #f9f9f9;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.search-form-group {
-    display: inline-block;
-    margin-right: 15px;
-}
-
-.search-form-group label {
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.search-input {
-    width: 150px;
-    padding: 5px;
-    border: 1px solid #ccc;
-}
-
-.search-input-email {
-    width: 180px;
-}
-
-.btn-search {
-    background-color: #007bff;
-    color: #fff;
+    background-color: #ffffff;
+    padding: 10px 0 25px 0;
+    margin-bottom: 10px;
     border: none;
-    padding: 6px 12px;
-}
-
-.btn-reset {
-    background-color: #6c757d;
-    color: #fff;
-    padding: 6px 12px;
-    font-size: 14px;
-}
-
-.btn-logout {
-    background-color: #6c757d;
-    color: #fff;
-    border: none;
-    padding: 6px 12px;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .export-box {
-    margin-bottom: 20px;
-    text-align: right;
+    background-color: #ffffff;
+    padding: 10px 0;
+    margin-bottom: 25px;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.btn-export {
-    background-color: #28a745;
-    color: #fff;
-    padding: 8px 16px;
-    font-weight: bold;
+.search-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.search-form-group {
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 各入力欄・選択欄の共通スタイル */
+.search-input,
+.search-select {
+    padding: 8px 35px 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #8f8279;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    font-size: 14px;
+    height: 38px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* 各検索項目の幅をカチッと固定 */
+.search-input-keyword {
+    width: 380px;
+}
+
+.search-input-keyword .search-input {
+    width: 100%;
+    padding-right: 12px;
+}
+
+#search-gender,
+#search-inquiry-type {
+    width: 150px;
+}
+
+.search-input-date {
+    width: 140px;
+}
+
+#search-birth {
+    width: 140px;
+}
+
+/* セレクトボックス・カレンダー共通の透過▼トリガー表示 */
+.search-form-group:not(.search-input-keyword)::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-20%);
+    border-top: 6px solid rgba(143, 130, 121, 0.7);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: none;
+    pointer-events: none;
+}
+
+.search-input::placeholder {
+    color: rgba(143, 130, 121, 0.7);
+}
+
+.search-btn-actions {
+    display: flex;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+/* カレンダー（date）入力欄のプレースホルダー完全支配 */
+.search-input[type="date"] {
+    position: relative;
+}
+
+.search-input[type="date"]::-webkit-datetime-edit {
+    color: transparent;
+}
+
+.search-input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.search-input[type="date"]::before {
+    content: "年/月/日";
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(143, 130, 121, 0.7);
+    font-size: 14px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.search-input[type="date"]:focus::-webkit-datetime-edit,
+.search-input[type="date"][value*="-"]::-webkit-datetime-edit {
+    color: #8f8279;
+}
+
+.search-input[type="date"]:focus::before,
+.search-input[type="date"][value*="-"]::before {
+    display: none;
+}
+
+/* ==========================================
+   ボタン各種 & データ一覧テーブル
+   ========================================== */
+.btn {
+    padding: 10px 24px;
+    cursor: pointer;
+    display: inline-block;
     border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease;
+}
+
+.btn-search,
+.btn-export {
+    background-color: #8f8279;
+    color: #ffffff;
+}
+
+.btn-search:hover,
+.btn-export:hover {
+    background-color: #72675f;
+}
+
+.btn-reset {
+    background-color: #f5f5f5;
+    color: #8f8279;
+    border: 1px solid #8f8279;
+}
+
+.btn-reset:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-detail {
+    background-color: #f5f5f5;
+    color: #8f8279;
+    border: 1px solid #ccc;
+    padding: 6px 16px;
+    font-size: 12px;
+}
+
+.btn-detail:hover {
+    background-color: #8f8279;
+    color: #ffffff;
+    border-color: #8f8279;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #ffffff;
+    padding: 8px 24px;
+    font-size: 14px;
+}
+
+.btn-delete:hover {
+    background-color: #bd2130;
 }
 
 .admin-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    margin-bottom: 30px;
+    box-sizing: border-box;
 }
 
 .admin-table th {
-    background-color: #eee;
-    border-bottom: 2px solid #ccc;
-    padding: 10px;
+    background-color: #8f8279;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 14px 12px;
+    border-bottom: 1px solid #ccc;
     text-align: left;
 }
 
 .admin-table td {
-    border-bottom: 1px solid #ddd;
-    padding: 10px;
+    padding: 14px 12px;
+    border-bottom: 1px solid #ccc;
+    color: #8f8279;
 }
 
-.admin-table-flex-td {
+/* ==========================================
+   💡 ページネーション（数字の大きさはデフォルト仕様）
+   ========================================== */
+.custom-classic-pagination p,
+.custom-classic-pagination nav div:first-child,
+.custom-classic-pagination nav div.justify-between {
+    display: none;
+}
+
+.custom-classic-pagination nav,
+.custom-classic-pagination nav>div,
+.custom-classic-pagination nav span,
+.custom-classic-pagination nav div span {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    gap: 0;
+    /* 隙間ゼロでピタッと完全密着 */
+    border: none;
+    box-shadow: none;
+    background: transparent;
     align-items: center;
 }
 
-.btn-delete {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 4px 8px;
-    font-size: 12px;
+/* ボタンの形状を100%統一（数字のfont-sizeは指定せずデフォルトに委ねます） */
+.custom-classic-pagination nav span a,
+.custom-classic-pagination nav span span,
+.custom-classic-pagination nav div span a,
+.custom-classic-pagination nav div span span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0;
+    font-size: 0;
+    /* 英語（PreviousやNext等）の初期テキスト隠蔽用 */
+    color: #8f8279;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0;
+    background-color: #ffffff;
+    text-decoration: none;
+    box-sizing: border-box;
+    position: relative;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.custom-classic-pagination nav span> :first-child,
+.custom-classic-pagination nav div span> :first-child {
+    border-left: 1px solid #ccc;
+}
+
+.custom-classic-pagination nav svg {
+    display: none;
+}
+
+/* 💡 数字部分：CSSでの個別サイズ指定（14px）を消去し、Breezeや初期設定のデフォルトサイズへ綺麗に戻します */
+.custom-classic-pagination nav span a,
+.custom-classic-pagination nav div span a,
+.custom-classic-pagination nav span span[aria-current="page"] span,
+.custom-classic-pagination nav div span span[aria-current="page"] span {
+    font-size: initial;
+}
+
+/* 左右の四角い枠内に、極小7pxの美しい「〈」「〉」を完全直結合成 */
+.custom-classic-pagination nav span> :first-child::before,
+.custom-classic-pagination nav div span> :first-child::before {
+    content: "〈";
+    font-size: 7px;
+    font-family: sans-serif;
+    display: block;
+}
+
+.custom-classic-pagination nav span> :last-child::before,
+.custom-classic-pagination nav div span> :last-child::before {
+    content: "〉";
+    font-size: 7px;
+    font-family: sans-serif;
+    display: block;
+}
+
+.custom-classic-pagination nav span span[aria-current="page"] span,
+.custom-classic-pagination nav div span span[aria-current="page"] span {
+    background-color: #8f8279;
+    color: #ffffff;
+    border-color: #8f8279;
+    border-left: 1px solid #8f8279;
+}
+
+.custom-classic-pagination nav a:hover {
+    background-color: #f5f5f5;
+}
+
+.custom-classic-pagination nav span>span:first-child,
+.custom-classic-pagination nav span>span:last-child,
+.custom-classic-pagination nav div span>span:first-child,
+.custom-classic-pagination nav div span>span:last-child {
+    color: #ccc;
+    background-color: #fafafa;
+    cursor: not-allowed;
+}
+
+/* ==========================================
+    スマートフォン・タブレット向けレスポンシブ
+   ========================================== */
+@media screen and (max-width: 768px) {
+    .search-box {
+        padding: 15px 0;
+    }
+
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form-group {
+        width: 100%;
+    }
+
+    .search-input-keyword,
+    .search-input-keyword .search-input,
+    #search-gender,
+    #search-inquiry-type,
+    .search-input-date,
+    #search-birth {
+        width: 100%;
+    }
+
+    .search-btn-actions {
+        width: 100%;
+        margin-left: 0;
+        justify-content: space-between;
+    }
+
+    .export-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
 }

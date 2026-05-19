@@ -1,4 +1,4 @@
-@extends('layouts.authapp')
+@extends('layouts.auth-app')
 
 @section('title', 'ログイン')
 

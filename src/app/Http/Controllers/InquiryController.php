@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// 💡 変更：古いモデルを完全に排除し、新仕様の Contact モデルを読み込みます
+// 仕様書に準拠した Contact モデルを正確に読み込みます
 use App\Models\Contact;
 use App\Http\Requests\InquiryRequest;
 
@@ -44,10 +44,10 @@ class InquiryController extends Controller
      */
     public function thanks(InquiryRequest $request)
     {
-        // 💡 修正：3分割された電話番号を、仕様書通りの「tel」カラム1つに綺麗に合体させます
+        // 3分割された電話番号を、仕様書通りの「tel」カラム1つに綺麗に合体させます
         $telephoneNumber = $request->telephone_one . $request->telephone_two . $request->telephone_three;
 
-        // 💡 修正：テーブル仕様書通りのカラム名にマッピングして保存を確定させます
+        // テーブル仕様書通りのカラム名にマッピングして保存を確定させます
         Contact::create([
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
@@ -64,52 +64,45 @@ class InquiryController extends Controller
     }
 
     /**
-     * 💡 管理画面の表示（contactsテーブルへ接続先を変更）
+     * 💡 改良：管理画面の初期表示 ＆ 高度な一括検索処理をGET通信1本へ完全一本化
      */
-    public function admin()
-    {
-        // 💡 補正：件数が増えても崩れないよう、仕様書に適合したページネーション（10件区切り）に変更
-        $contacts = Contact::paginate(10);
-        return view('inquiry.admin', compact('contacts'));
-    }
-
-    /**
-     * 💡 管理画面での検索処理（contactsテーブル完全対応版）
-     */
-    public function search(Request $request)
+    public function admin(Request $request)
     {
         $query = Contact::query();
 
-        // お名前（姓・名）の検索
-        if ($request->filled('name')) {
-            $searchWord = $request->input('name');
-            $query->where(function ($subQuery) use ($searchWord) {
-                $subQuery->where('first_name', 'LIKE', '%' . $searchWord . '%')
-                         ->orWhere('last_name', 'LIKE', '%' . $searchWord . '%');
+        // 1. キーワード（名前・メール）横断検索
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($subQuery) use ($keyword) {
+                $subQuery->where('first_name', 'LIKE', '%' . $keyword . '%')
+                         ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
+                         ->orWhere('email', 'LIKE', '%' . $keyword . '%');
             });
         }
 
-        // メールアドレスの検索
-        if ($request->filled('email')) {
-            $query->where('email', 'LIKE', '%' . $request->input('email') . '%');
+        // 2. 性別：「all」以外が選ばれた時のみしっかりと絞り込みます
+        if ($request->filled('gender') && $request->input('gender') !== 'all') {
+            $query->where('gender', $request->input('gender'));
         }
 
-        // 💡 ページネーションを崩さずに検索結果を10件ずつスマートに取得します
-        $contacts = $query->paginate(10);
+        // 3. お問い合わせの種類：「all」以外が選ばれた時のみしっかりと絞り込みます
+        if ($request->filled('inquiry_type') && $request->input('inquiry_type') !== 'all') {
+            $query->where('categry_id', $request->input('inquiry_type'));
+        }
+
+        // 4. 生年月日日付検索
+        if ($request->filled('birth_date')) {
+            $query->whereDate('birth_date', $request->input('birth_date'));
+        }
+
+        // ページネーションを崩さずに検索結果を10件ずつスマートに取得します
+        $contacts = $query->paginate(7);
 
         return view('inquiry.admin', compact('contacts'));
     }
 
     /**
-     * 検索リセット処理
-     */
-    public function reset()
-    {
-        return redirect()->route('admin.index');
-    }
-
-    /**
-     * 💡 管理画面でのデータ削除処理（contactsテーブル完全対応版）
+     * 管理画面でのデータ削除処理
      */
     public function delete(Request $request)
     {
@@ -131,7 +124,7 @@ class InquiryController extends Controller
     }
 
     /**
-     * 💡 CSVダウンロード機能（新テーブル・新カラム名に完全繋ぎ変え）
+     * CSVダウンロード機能（新テーブル・新カラム名に完全対応版）
      */
     public function export()
     {
@@ -179,7 +172,7 @@ class InquiryController extends Controller
                     $contact->last_name,
                     $genderText,
                     $contact->email,
-                    $contact->tel, // 💡 新しい合体カラムをそのままスマートに出力
+                    $contact->tel,
                     $contact->address,
                     $contact->building,
                     $inquiryTypeText,
