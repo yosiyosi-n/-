@@ -114,7 +114,7 @@
 /* ==========================================
    💡 詳細度調整：!important を完全排除し、色とGeorgiaフォントのうねりだけを適用
    ========================================== */
-.admin-container .modal-table td.modal-tel-text {
+.modal-window .modal-table td.modal-tel-text {
     font-family: Georgia, serif;
     /* Georgiaのデコボコうねる質感を再現 */
     font-size: 18px;
