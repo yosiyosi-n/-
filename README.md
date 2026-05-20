@@ -49,14 +49,27 @@ composer install
 npm install && npm run build
 ```
 
-### 5. 環境設定ファイルの準備
+### 5. 環境設定ファイルの準備 ＆ 設定変更
 ```bash
 cp .env.example .env
+```
+💡 **【重要】コピーした `.env` ファイルを開き、データベース接続設定を Docker環境（`docker-compose.yml`）に合わせて必ず以下のように修正してください。**
+```env
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+修正・保存したら、コンテナ内でアプリケーションキーを生成します。
+```bash
 php artisan key:generate
 ```
 
 ### 6. マイグレーションとシーダーの実行
 ```bash
+php artisan config:clear
 php artisan migrate:fresh --seed
 ```
 
