@@ -25,7 +25,7 @@
                 <div class="search-form-group">
                     <label for="search-gender"></label>
                     <select name="gender" id="search-gender" class="search-select">
-                        <option value="all" {{ request('gender') == 'all' || !request()->has('gender') ? 'selected' : '' }}>性別</option>
+                        <option value="" {{ request('gender') == '' || !request()->has('gender') ? 'selected' : '' }} hidden>性別</option>
                         <option value="1" {{ request('gender') == '1' ? 'selected' : '' }}>男性</option>
                         <option value="2" {{ request('gender') == '2' ? 'selected' : '' }}>女性</option>
                         <option value="3" {{ request('gender') == '3' ? 'selected' : '' }}>その他</option>
@@ -36,7 +36,7 @@
                 <div class="search-form-group">
                     <label for="search-inquiry-type"></label>
                     <select name="inquiry_type" id="search-inquiry-type" class="search-select">
-                        <option value="all" {{ request('inquiry_type') == 'all' || !request()->has('inquiry_type') ? 'selected' : '' }}>お問い合わせの種類</option>
+                        <option value="" {{ request('inquiry_type') == '' || !request()->has('inquiry_type') ? 'selected' : '' }} hidden>お問い合わせの種類</option>
                         <option value="1" {{ request('inquiry_type') == '1' ? 'selected' : '' }}>商品のお届けについて</option>
                         <option value="2" {{ request('inquiry_type') == '2' ? 'selected' : '' }}>商品の交換について</option>
                         <option value="3" {{ request('inquiry_type') == '3' ? 'selected' : '' }}>商品トラブル</option>
@@ -74,7 +74,7 @@
                     <th>性別</th>
                     <th>メールアドレス</th>
                     <th>お問い合わせの種類</th>
-                    <th>操作</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // 仕様書に準拠した Contact モデルを正確に読み込みます
 use App\Models\Contact;
 use App\Http\Requests\InquiryRequest;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class InquiryController extends Controller
 {
@@ -58,6 +59,8 @@ class InquiryController extends Controller
             'building'   => $request->building_name,
             'categry_id' => $request->inquiry_type,
             'detail'     => $request->content,
+            // 💡 もしデータベースにbirth_dateがあり、フォームから生年月日が送られてくる場合はここに追記します
+            // 'birth_date' => $request->birth_date,
         ]);
 
         return view('inquiry.thanks');
@@ -68,34 +71,10 @@ class InquiryController extends Controller
      */
     public function admin(Request $request)
     {
-        $query = Contact::query();
+        // 💡 共通の検索クエリ構築ロジックを呼び出します（CSVエクスポートと連動させるため）
+        $query = $this->buildSearchQuery($request);
 
-        // 1. キーワード（名前・メール）横断検索
-        if ($request->filled('keyword')) {
-            $keyword = $request->input('keyword');
-            $query->where(function ($subQuery) use ($keyword) {
-                $subQuery->where('first_name', 'LIKE', '%' . $keyword . '%')
-                         ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
-                         ->orWhere('email', 'LIKE', '%' . $keyword . '%');
-            });
-        }
-
-        // 2. 性別：「all」以外が選ばれた時のみしっかりと絞り込みます
-        if ($request->filled('gender') && $request->input('gender') !== 'all') {
-            $query->where('gender', $request->input('gender'));
-        }
-
-        // 3. お問い合わせの種類：「all」以外が選ばれた時のみしっかりと絞り込みます
-        if ($request->filled('inquiry_type') && $request->input('inquiry_type') !== 'all') {
-            $query->where('categry_id', $request->input('inquiry_type'));
-        }
-
-        // 4. 生年月日日付検索
-        if ($request->filled('birth_date')) {
-            $query->whereDate('birth_date', $request->input('birth_date'));
-        }
-
-        // ページネーションを崩さずに検索結果を10件ずつスマートに取得します
+        // ページネーションを崩さずに検索結果を7件ずつスマートに取得します
         $contacts = $query->paginate(7);
 
         return view('inquiry.admin', compact('contacts'));
@@ -124,11 +103,13 @@ class InquiryController extends Controller
     }
 
     /**
-     * CSVダウンロード機能（新テーブル・新カラム名に完全対応版）
+     * CSVダウンロード機能（現在の検索・絞り込み結果に完全連動版）
      */
-    public function export()
+    public function export(Request $request)
     {
-        $contacts = Contact::all();
+        // 💡 画面上の検索条件を引き継いでクエリをビルド
+        $query = $this->buildSearchQuery($request);
+        $contacts = $query->get();
 
         if ($contacts->isEmpty()) {
             return redirect()->route('admin.index');
@@ -139,10 +120,14 @@ class InquiryController extends Controller
         $headers = [
             'Content-Type'        => 'text/csv',
             'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0',
         ];
 
         $callback = function () use ($contacts) {
             $fileHandle = fopen('php://output', 'w');
+            // Excelでの文字化けを防ぐためのBOMを追加
             fwrite($fileHandle, "\xEF\xBB\xBF");
 
             fputcsv($fileHandle, ['ID', '姓', '名', '性別', 'メールアドレス', '電話番号', '住所', '建物名', '種類', 'お問い合わせ内容', '送信日時']);
@@ -177,7 +162,7 @@ class InquiryController extends Controller
                     $contact->building,
                     $inquiryTypeText,
                     $contact->detail,
-                    $contact->created_at->format('Y/m/d H:i'),
+                    $contact->created_at ? $contact->created_at->format('Y/m/d H:i') : 'ー',
                 ]);
             }
 
@@ -185,5 +170,40 @@ class InquiryController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * 💡 検索クエリを組み立てる共通プライベートメソッド（再利用可能）
+     */
+    private function buildSearchQuery(Request $request)
+    {
+        $query = Contact::query();
+
+        // 1. キーワード（名前・メール）横断検索
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $query->where(function ($subQuery) use ($keyword) {
+                $subQuery->where('first_name', 'LIKE', '%' . $keyword . '%')
+                         ->orWhere('last_name', 'LIKE', '%' . $keyword . '%')
+                         ->orWhere('email', 'LIKE', '%' . $keyword . '%');
+            });
+        }
+
+        // 2. 性別：Blade側でvalue=""（空）にしたため、値が存在するときのみ絞り込みます
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->input('gender'));
+        }
+
+        // 3. お問い合わせの種類：こちらも値が存在するときのみ絞り込みます
+        if ($request->filled('inquiry_type')) {
+            $query->where('categry_id', $request->input('inquiry_type'));
+        }
+
+        // 4. 送信日時（日付検索）：カレンダーの日付をデータベースのcreated_atの「日付部分」と一致させます
+        if ($request->filled('birth_date')) {
+            $query->whereDate('created_at', $request->input('birth_date'));
+        }
+
+        return $query;
     }
 }
