@@ -23,7 +23,7 @@
 
 ### 1. リポジトリのクローンと移動
 ```bash
-git clone <あなたのGitHubリポジトリURL>
+git clone git@github.com:yosiyosi-n/-.git
 cd inquiry
 ```
 
