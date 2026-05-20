@@ -37,4 +37,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 
 // 応用
-Route::post('/export', [AuthController::class, 'export']);
+Route::get('/export', [InquiryController::class, 'export'])->middleware(['auth'])->name('admin.export');

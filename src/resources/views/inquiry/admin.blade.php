@@ -59,8 +59,7 @@
         </div>
 
         <div class="export-box">
-            <a href="/export" class="btn btn-export">CSVエクスポート</a>
-            
+            <a href="/export?{{ http_build_query(request()->query()) }}" class="btn btn-export">CSVエクスポート</a>
             <!-- 💡 変更：CSSの優先度勝負に200%勝つために、独自の専用クラス名『custom-classic-pagination』を直接付与します -->
             <div class="custom-classic-pagination">
                 {{ $contacts->appends(request()->query())->links() }}

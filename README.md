@@ -13,6 +13,7 @@
 - **PG08:** ユーザ登録 (`/register`)
 - **PG09:** ログイン (`/login`)
 - **PG10:** ログアウト (`/logout`)
+- **PG11:** CSVエクスポート (`/export`) -> 検索条件完全連動仕様
 
 ---
 
@@ -40,7 +41,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-### 4. データベース（MAMP/Docker等）の設定
+### 4. データベースの設定
 `.env` ファイルを開き、自身のローカルDB環境に合わせて以下を修正します。
 ```env
 DB_CONNECTION=mysql
@@ -57,7 +58,13 @@ DB_PASSWORD=root (または空)
 php artisan migrate:fresh --seed
 ```
 
-### 6. ローカルサーバーの起動
+### 6. ルートキャッシュのクリア（重要）
+初期ルートの競合を防ぐため、一度キャッシュをクリアします。
+```bash
+php artisan route:clear
+```
+
+### 7. ローカルサーバーの起動
 ```bash
 php artisan serve
 ```
@@ -66,4 +73,4 @@ php artisan serve
 ---
 
 ## 📊 データベース設計 (ER図)
-プロジェクトのルート直下にある `inquiry.drawio.png` を参照してください。
+![データベースER図](inquiry.drawio.png)
